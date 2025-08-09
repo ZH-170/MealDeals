@@ -1,0 +1,125 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Definition of the design system. All colors, gradients, fonts, etc should be defined here. 
+All colors MUST be HSL.
+*/
+
+@layer base {
+  :root {
+    --background: 120 20% 98%;
+    --foreground: 120 15% 15%;
+
+    --card: 0 0% 100%;
+    --card-foreground: 120 15% 15%;
+
+    --popover: 0 0% 100%;
+    --popover-foreground: 120 15% 15%;
+
+    --primary: 142 76% 36%;
+    --primary-foreground: 0 0% 100%;
+
+    --secondary: 120 60% 95%;
+    --secondary-foreground: 120 15% 15%;
+
+    --muted: 120 20% 96%;
+    --muted-foreground: 120 10% 50%;
+
+    --accent: 25 95% 53%;
+    --accent-foreground: 0 0% 100%;
+
+    --destructive: 0 84.2% 60.2%;
+    --destructive-foreground: 0 0% 100%;
+
+    --border: 120 20% 90%;
+    --input: 120 20% 94%;
+    --ring: 142 76% 36%;
+
+    /* Custom discount finder colors */
+    --discount: 0 84% 55%;
+    --discount-foreground: 0 0% 100%;
+    --store-woolworths: 142 76% 36%;
+    --store-coles: 0 84% 55%;
+    --store-aldi: 25 95% 53%;
+    --store-iga: 220 84% 55%;
+    --savings: 120 100% 25%;
+    --recipe-card: 120 40% 98%;
+
+    --radius: 0.5rem;
+
+    --sidebar-background: 0 0% 98%;
+
+    --sidebar-foreground: 240 5.3% 26.1%;
+
+    --sidebar-primary: 240 5.9% 10%;
+
+    --sidebar-primary-foreground: 0 0% 98%;
+
+    --sidebar-accent: 240 4.8% 95.9%;
+
+    --sidebar-accent-foreground: 240 5.9% 10%;
+
+    --sidebar-border: 220 13% 91%;
+
+    --sidebar-ring: 217.2 91.2% 59.8%;
+  }
+
+  .dark {
+    --background: 120 15% 8%;
+    --foreground: 120 20% 95%;
+
+    --card: 120 15% 10%;
+    --card-foreground: 120 20% 95%;
+
+    --popover: 120 15% 10%;
+    --popover-foreground: 120 20% 95%;
+
+    --primary: 142 76% 45%;
+    --primary-foreground: 0 0% 100%;
+
+    --secondary: 120 15% 15%;
+    --secondary-foreground: 120 20% 95%;
+
+    --muted: 120 15% 15%;
+    --muted-foreground: 120 10% 65%;
+
+    --accent: 25 95% 60%;
+    --accent-foreground: 0 0% 100%;
+
+    --destructive: 0 62.8% 50%;
+    --destructive-foreground: 0 0% 100%;
+
+    /* Dark mode custom colors */
+    --discount: 0 84% 60%;
+    --discount-foreground: 0 0% 100%;
+    --store-woolworths: 142 76% 45%;
+    --store-coles: 0 84% 60%;
+    --store-aldi: 25 95% 60%;
+    --store-iga: 220 84% 60%;
+    --savings: 120 100% 35%;
+    --recipe-card: 120 15% 12%;
+
+    --border: 217.2 32.6% 17.5%;
+    --input: 217.2 32.6% 17.5%;
+    --ring: 212.7 26.8% 83.9%;
+    --sidebar-background: 240 5.9% 10%;
+    --sidebar-foreground: 240 4.8% 95.9%;
+    --sidebar-primary: 224.3 76.3% 48%;
+    --sidebar-primary-foreground: 0 0% 100%;
+    --sidebar-accent: 240 3.7% 15.9%;
+    --sidebar-accent-foreground: 240 4.8% 95.9%;
+    --sidebar-border: 240 3.7% 15.9%;
+    --sidebar-ring: 217.2 91.2% 59.8%;
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+
+  body {
+    @apply bg-background text-foreground;
+  }
+}
