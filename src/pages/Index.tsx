@@ -78,7 +78,7 @@ const Index = () => {
             <div>
               <h1 className="text-3xl font-bold text-primary flex items-center gap-2">
                 <ShoppingCart className="h-8 w-8" />
-                Discount Recipe Finder
+                Meal Deals
               </h1>
               <p className="text-muted-foreground mt-1">
                 Find discounted groceries and create delicious recipes
