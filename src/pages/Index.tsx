@@ -9,371 +9,450 @@ import { FilterBar } from "@/components/FilterBar";
 import { useDiscountProducts } from "@/hooks/useDiscountProducts";
 import { useRecipes } from "@/hooks/useRecipes";
 import { FilterState, DiscountedProduct, Recipe } from "@/types/types";
-import { ShoppingCart, ChefHat, Sparkles, RefreshCw, Loader2 } from "lucide-react";
+import {
+    ShoppingCart,
+    ChefHat,
+    Sparkles,
+    RefreshCw,
+    Loader2,
+} from "lucide-react";
 import { useToast } from "@/components/ui/use-toast";
 
 const Index = () => {
-  const { toast } = useToast();
-  const [filters, setFilters] = useState<FilterState>({
-    stores: [],
-    categories: [],
-    searchTerm: '',
-    minDiscount: 0,
-    maxPrice: 1000,
-  });
+    const { toast } = useToast();
+    const [filters, setFilters] = useState<FilterState>({
+        stores: [],
+        categories: [],
+        searchTerm: "",
+        minDiscount: 0,
+        maxPrice: 1000,
+    });
 
-  const [selectedProducts, setSelectedProducts] = useState<DiscountedProduct[]>([]);
-  const [activeTab, setActiveTab] = useState("products");
-  
-  const [isGenerating, setIsGenerating] = useState(false);
+    const [selectedProducts, setSelectedProducts] = useState<
+        DiscountedProduct[]
+    >([]);
+    const [activeTab, setActiveTab] = useState("products");
 
-  const { loading: productsLoading, categories, refetch: refetchProducts } = useDiscountProducts(filters);
-  const { recipes, loading: recipesLoading, addRecipe } = useRecipes();
+    const [isGenerating, setIsGenerating] = useState(false);
 
-  const products = [
-  {
-    id: '1a2b3c4d-0001-4000-8000-123456789abc',
-    product_name: 'Organic Bananas',
-    original_price: 4.50,
-    discounted_price: 3.00,
-    percentage_off: 33,
-    store_name: 'Woolworths',
-    category: 'Fruits',
-    image_url: 'https://example.com/images/organic-banana.jpg',
-    product_url: 'https://woolworths.com.au/shop/productdetails/organic-bananas',
-    scraped_at: '2025-08-09T10:00:00Z',
-    is_active: true,
-    created_at: '2025-08-08T12:00:00Z',
-    updated_at: '2025-08-09T09:00:00Z',
-  },
-  {
-    id: '1a2b3c4d-0002-4000-8000-123456789abd',
-    product_name: 'Whole Milk 2L',
-    original_price: 3.20,
-    discounted_price: 2.80,
-    percentage_off: 13,
-    store_name: 'Coles',
-    category: 'Dairy',
-    image_url: 'https://example.com/images/whole-milk-2l.jpg',
-    product_url: 'https://coles.com.au/shop/productdetails/whole-milk-2l',
-    scraped_at: '2025-08-09T10:05:00Z',
-    is_active: true,
-    created_at: '2025-08-08T13:30:00Z',
-    updated_at: '2025-08-09T09:30:00Z',
-  },
-  {
-    id: '1a2b3c4d-0003-4000-8000-123456789abe',
-    product_name: 'Multigrain Bread',
-    original_price: 2.50,
-    discounted_price: 2.00,
-    percentage_off: 20,
-    store_name: 'Aldi',
-    category: 'Bakery',
-    image_url: 'https://example.com/images/multigrain-bread.jpg',
-    product_url: 'https://aldi.com.au/shop/productdetails/multigrain-bread',
-    scraped_at: '2025-08-09T09:45:00Z',
-    is_active: true,
-    created_at: '2025-08-08T11:00:00Z',
-    updated_at: '2025-08-09T08:30:00Z',
-  },
-  {
-    id: '1a2b3c4d-0004-4000-8000-123456789abf',
-    product_name: 'Free Range Eggs 12 Pack',
-    original_price: 5.50,
-    discounted_price: 4.75,
-    percentage_off: 14,
-    store_name: 'IGA',
-    category: 'Dairy',
-    image_url: 'https://example.com/images/free-range-eggs.jpg',
-    product_url: 'https://iga.com.au/shop/productdetails/free-range-eggs',
-    scraped_at: '2025-08-09T09:15:00Z',
-    is_active: false,
-    created_at: '2025-08-07T15:00:00Z',
-    updated_at: '2025-08-08T10:00:00Z',
-  },
-];
+    const {
+        products,
+        loading: productsLoading,
+        categories,
+        refetch: refetchProducts,
+    } = useDiscountProducts(filters);
+    const { loading: recipesLoading, addRecipe } = useRecipes();
 
-  const filteredProducts = products.filter(product => {
-    // Filter by search term
-    const matchesSearchTerm = filters.searchTerm === '' || 
-      product.product_name.toLowerCase().includes(filters.searchTerm.toLowerCase());
+    const [recipes, setRecipes] = useState<Recipe[]>([]);
 
-    // Filter by selected stores
-    const matchesStore = filters.stores.length === 0 || 
-      filters.stores.includes(product.store_name);
+    const filteredProducts = products.filter((product) => {
+        // Filter by search term
+        const matchesSearchTerm =
+            filters.searchTerm === "" ||
+            product.product_name
+                .toLowerCase()
+                .includes(filters.searchTerm.toLowerCase());
 
-    // Filter by selected categories
-    const matchesCategory = filters.categories.length === 0 || 
-      filters.categories.includes(product.category);
+        // Filter by selected stores
+        const matchesStore =
+            filters.stores.length === 0 ||
+            filters.stores.includes(product.store_name);
 
-    // Filter by minimum discount
-    const meetsMinDiscount = product.percentage_off >= filters.minDiscount;
+        // Filter by selected categories
+        if (!product.category) {
+            throw new Error("Product category not found.");
+        }
+        const matchesCategory =
+            filters.categories.length === 0 ||
+            filters.categories.includes(product.category);
 
-    // Filter by maximum price
-    const meetsMaxPrice = product.discounted_price <= filters.maxPrice;
+        // Filter by minimum discount
+        const meetsMinDiscount = product.percentage_off >= filters.minDiscount;
 
-    // Return true only if all conditions are met
-    return matchesSearchTerm && matchesStore && matchesCategory && meetsMinDiscount && meetsMaxPrice;
-  });
+        // Filter by maximum price
+        const meetsMaxPrice = product.discounted_price <= filters.maxPrice;
 
-  const handleAddToRecipe = (product: DiscountedProduct) => {
-    if (!selectedProducts.find(p => p.id === product.id)) {
-      setSelectedProducts(prev => [...prev, product]);
-      toast({
-        title: "Product Added",
-        description: `${product.product_name} added to recipe ingredients`,
-      });
-    } else {
-      toast({
-        title: "Already Added",
-        description: "This product is already in your recipe ingredients",
-        variant: "destructive",
-      });
-    }
-  };
+        // Return true only if all conditions are met
+        return (
+            matchesSearchTerm &&
+            matchesStore &&
+            matchesCategory &&
+            meetsMinDiscount &&
+            meetsMaxPrice
+        );
+    });
 
-  const removeFromSelected = (productId: string) => {
-    setSelectedProducts(prev => prev.filter(p => p.id !== productId));
-  };
+    const handleAddToRecipe = (product: DiscountedProduct) => {
+        if (!selectedProducts.find((p) => p.id === product.id)) {
+            setSelectedProducts((prev) => [...prev, product]);
+            toast({
+                title: "Product Added",
+                description: `${product.product_name} added to recipe ingredients`,
+            });
+        } else {
+            toast({
+                title: "Already Added",
+                description:
+                    "This product is already in your recipe ingredients",
+                variant: "destructive",
+            });
+        }
+    };
 
-  const generateRecipes = async () => {
-    if (selectedProducts.length === 0) {
-      toast({
-        title: "No Ingredients",
-        description: "Please select some discount products first",
-        variant: "destructive",
-      });
-      return;
-    }
+    const removeFromSelected = (productId: string) => {
+        setSelectedProducts((prev) => prev.filter((p) => p.id !== productId));
+    };
 
-    // setIsGenerating(true);
-    // try {
-    //   const ingredientNames = selectedProducts.map(p => p.product_name);
-      
-    //   const response = await fetch('/api/generate-recipe', {
-    //     method: 'POST',
-    //     headers: {
-    //       'Content-Type': 'application/json',
-    //     },
-    //     body: JSON.stringify({ ingredients: ingredientNames }),
-    //   });
+    const createPrompt = (ingredients: string[]): string => {
+        return `
+    You are a creative culinary assistant. Your task is to generate 3 compelling recipes based on a list of key ingredients.
 
-    //   if (!response.ok) {
-    //     throw new Error('Failed to generate recipe');
-    //   }
 
-    //   const newRecipeData = await response.json();
+    The key ingredients, which are on sale, are: ${ingredients.join(", ")}.
 
-    //   // Assuming your Recipe type has this structure.
-    //   // We add a unique client-side ID.
-    //   const newRecipe: Recipe = {
-    //     id: crypto.randomUUID(), 
-    //     ...newRecipeData
-    //   };
-      
-    //   addRecipe(newRecipe);
-      
-    //   toast({
-    //     title: "Recipe Generated!",
-    //     description: `Your new recipe "${newRecipe.title}" has been created.`,
-    //   });
-      
-    //   // Switch to the recipes tab to show the result
-    //   setActiveTab("recipes");
 
-    // } catch (error) {
-    //   console.error(error);
-    //   toast({
-    //     title: "Error",
-    //     description: "Could not generate a recipe. Please try again later.",
-    //     variant: "destructive",
-    //   });
-    // } finally {
-    //   setIsGenerating(false);
-    // }
-  };
+    Please adhere to the following rules:
+    1.  The recipe should use most of the key ingredients provided.
+    2.  You can assume common pantry staples are available (e.g., oil, salt, pepper, water, basic spices).
+    3.  Your entire response MUST be a list of valid, minified JSON objects. Each JSON object MUST correspond to each recipe. Do not include any text, explanations, or markdown formatting like \`\`\`json before or after the JSON object.
+    4.  Each JSON object must strictly follow this TypeScript interface:
+        \`\`\`typescript
+        {
+          title: string;
+          description: string;
+          ingredients: Array<{
+            name: string;
+            amount: string;
+            unit: string;
+            isDiscounted: boolean;
+          }>;
+          cooking_steps: string[];
+          calories: number;
+          prep_time_minutes: number;
+          cook_time_minutes: number;
+          servings: number;
+          difficulty_level: 'Easy' | 'Medium' | 'Hard';
+          cuisine_type: string;
+        }
+        \`\`\`
+    5.  For each item in the 'ingredients' array:
+        - Set 'isDiscounted' to true if it is one of the key ingredients.
+        - List all other necessary ingredients (including pantry staples) and set their 'isDiscounted' property to false.
+  `;
+    };
 
-  const totalSavings = selectedProducts.reduce((sum, product) => 
-    sum + (product.original_price - product.discounted_price), 0
-  );
+    const generateRecipes = async () => {
+        if (selectedProducts.length < 2) {
+            // Encourage selecting more than one item
+            toast({
+                title: "Not Enough Ingredients",
+                description:
+                    "Please select at least 2 discount products for a better recipe.",
+                variant: "destructive",
+            });
+            return;
+        }
 
-  return (
-    <div className="min-h-screen bg-background">
-      {/* Header */}
-      <header className="border-b bg-card">
-        <div className="container mx-auto px-4 py-6">
-          <div className="flex items-center justify-between">
-            <div>
-              <h1 className="text-3xl font-bold text-primary flex items-center gap-2">
-                <ShoppingCart className="h-8 w-8" />
-                Meal Deals
-              </h1>
-              <p className="text-muted-foreground mt-1">
-                Find discounted groceries and create delicious recipes
-              </p>
-            </div>
-            <div className="flex items-center gap-4">
-              <Badge variant="outline" className="bg-savings/10 text-savings border-savings">
-                {products.length} Products on Sale
-              </Badge>
-              <Button variant="outline" size="sm" onClick={refetchProducts}>
-                <RefreshCw className="h-4 w-4 mr-1" />
-                Refresh
-              </Button>
-            </div>
-          </div>
-        </div>
-      </header>
+        setIsGenerating(true);
+        try {
+            setRecipes([]);
+            const ingredientNames = selectedProducts.map((p) => p.product_name);
+            const discountProductIds = selectedProducts.map((p) => p.id);
 
-      <div className="container mx-auto px-4 py-6">
-        <Tabs value={activeTab} onValueChange={setActiveTab}>
-          <TabsList className="grid w-full grid-cols-2 mb-6">
-            <TabsTrigger value="products" className="flex items-center gap-2">
-              <ShoppingCart className="h-4 w-4" />
-              On Sale Products
-            </TabsTrigger>
-            <TabsTrigger value="recipes" className="flex items-center gap-2">
-              <ChefHat className="h-4 w-4" />
-              Recipes
-            </TabsTrigger>
-          </TabsList>
+            const API_KEY =
+                "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";
 
-          <TabsContent value="products" className="space-y-6">
-            {/* Selected Products Summary */}
-            {selectedProducts.length > 0 && (
-              <Card className="bg-primary/5 border-primary/20">
-                <CardHeader>
-                  <CardTitle className="flex items-center justify-between">
-                    <span className="flex items-center gap-2">
-                      <Sparkles className="h-5 w-5" />
-                      Recipe Ingredients ({selectedProducts.length})
-                    </span>
-                    <div className="flex items-center gap-4">
-                      <Badge className="bg-savings text-white">
-                        Save ${totalSavings.toFixed(2)}
-                      </Badge>
-                      <Button onClick={generateRecipes} disabled={isGenerating}>
-                        {/* {isGenerating ? (
-                          <>
-                            <Loader2 className="mr-2 h-4 w-4 animate-spin" />
-                            Generating...
-                          </>
-                        ) : (
-                          "Generate Recipes"
-                        )} */}
-                        Generate Recipes
-                      </Button>
+            const response = await fetch(
+                "https://openrouter.ai/api/v1/chat/completions",
+                {
+                    method: "POST",
+                    headers: {
+                        Authorization: `Bearer ${API_KEY}`, // Your key is exposed here
+                        "Content-Type": "application/json",
+                    },
+                    body: JSON.stringify({
+                        model: "nousresearch/nous-hermes-2-mixtral-8x7b-dpo",
+                        messages: [
+                            {
+                                role: "user",
+                                content: createPrompt(ingredientNames),
+                            },
+                        ],
+                        response_format: { type: "json_object" },
+                    }),
+                },
+            );
+
+            if (!response.ok) {
+                const errorData = await response.json();
+                throw new Error(
+                    errorData.message || "Failed to generate recipe",
+                );
+            }
+
+            const data = await response.json();
+
+            const newRecipeDataArray = JSON.parse(
+                data.choices[0].message.content,
+            );
+
+            newRecipeDataArray.forEach((recipeData: any) => {
+                const newRecipeData = recipeData;
+                const newRecipe: Recipe = {
+                    id: crypto.randomUUID(),
+                    created_at: new Date().toISOString(),
+                    updated_at: new Date().toISOString(),
+                    generated_from_discounts: true,
+                    discount_products_used: ingredientNames,
+                    ...newRecipeData,
+                };
+
+                setRecipes((prevRecipes) => [...prevRecipes, newRecipe]);
+            });
+
+            toast({
+                title: "✨ Recipe Generated!",
+                description: `Your new recipes are ready. Enjoy cooking!`,
+            });
+
+            // Switch to the recipes tab to show the result
+            setActiveTab("recipes");
+            // Optional: Clear selected products after generating a recipe
+            setSelectedProducts([]);
+        } catch (error) {
+            console.log(error);
+            const errorMessage =
+                error instanceof Error
+                    ? error.message
+                    : "An unknown error occurred.";
+            toast({
+                title: "Generation Failed",
+                description: errorMessage,
+                variant: "destructive",
+            });
+        } finally {
+            setIsGenerating(false);
+        }
+    };
+
+    const totalSavings = selectedProducts.reduce(
+        (sum, product) =>
+            sum + (product.original_price - product.discounted_price),
+        0,
+    );
+
+    return (
+        <div className="min-h-screen bg-background">
+            {/* Header */}
+            <header className="border-b bg-card">
+                <div className="container mx-auto px-4 py-6">
+                    <div className="flex items-center justify-between">
+                        <div>
+                            <h1 className="text-3xl font-bold text-primary flex items-center gap-2">
+                                <ShoppingCart className="h-8 w-8" />
+                                Meal Deals
+                            </h1>
+                            <p className="text-muted-foreground mt-1">
+                                Find discounted groceries and create delicious
+                                recipes
+                            </p>
+                        </div>
+                        <div className="flex items-center gap-4">
+                            <Badge
+                                variant="outline"
+                                className="bg-savings/10 text-savings border-savings"
+                            >
+                                {products.length} Products on Sale
+                            </Badge>
+                            <Button
+                                variant="outline"
+                                size="sm"
+                                onClick={refetchProducts}
+                            >
+                                <RefreshCw className="h-4 w-4 mr-1" />
+                                Refresh
+                            </Button>
+                        </div>
                     </div>
-                  </CardTitle>
-                </CardHeader>
-                <CardContent>
-                  <div className="flex flex-wrap gap-2">
-                    {selectedProducts.map(product => (
-                      <Badge 
-                        key={product.id} 
-                        variant="secondary" 
-                        className="cursor-pointer hover:bg-destructive hover:text-destructive-foreground"
-                        onClick={() => removeFromSelected(product.id)}
-                      >
-                        {product.product_name} - ${product.discounted_price.toFixed(2)}
-                        <span className="ml-1">×</span>
-                      </Badge>
-                    ))}
-                  </div>
-                </CardContent>
-              </Card>
-            )}
+                </div>
+            </header>
 
-            {/* Filters */}
-            <FilterBar 
-              filters={filters}
-              onFiltersChange={setFilters}
-              categories={categories}
-            />
+            <div className="container mx-auto px-4 py-6">
+                <Tabs value={activeTab} onValueChange={setActiveTab}>
+                    <TabsList className="grid w-full grid-cols-2 mb-6">
+                        <TabsTrigger
+                            value="products"
+                            className="flex items-center gap-2"
+                        >
+                            <ShoppingCart className="h-4 w-4" />
+                            On Sale Products
+                        </TabsTrigger>
+                        <TabsTrigger
+                            value="recipes"
+                            className="flex items-center gap-2"
+                        >
+                            <ChefHat className="h-4 w-4" />
+                            Recipes
+                        </TabsTrigger>
+                    </TabsList>
 
-            {/* Products Grid */}
-            {productsLoading ? (
-              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4">
-                {[...Array(8)].map((_, i) => (
-                  <Card key={i} className="animate-pulse">
-                    <CardContent className="p-4">
-                      <div className="h-20 bg-muted rounded mb-3"></div>
-                      <div className="h-4 bg-muted rounded mb-2"></div>
-                      <div className="h-3 bg-muted rounded w-2/3"></div>
-                    </CardContent>
-                  </Card>
-                ))}
-              </div>
-            ) : filteredProducts.length === 0 ? (
-              <Card>
-                <CardContent className="text-center py-12">
-                  <ShoppingCart className="h-12 w-12 mx-auto text-muted-foreground mb-4" />
-                  <h3 className="text-lg font-semibold mb-2">No Products Found</h3>
-                  <p className="text-muted-foreground">
-                    Try adjusting your filters or check back later for new deals
-                  </p>
-                </CardContent>
-              </Card>
-            ) : (
-              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4">
-                {filteredProducts.map((product) => (
-                  <DiscountProduct
-                    key={product.id}
-                    product={product}
-                    onAddToRecipe={handleAddToRecipe}
-                  />
-                ))}
-              </div>
-            )}
-          </TabsContent>
+                    <TabsContent value="products" className="space-y-6">
+                        {/* Selected Products Summary */}
+                        {selectedProducts.length > 0 && (
+                            <Card className="bg-primary/5 border-primary/20">
+                                <CardHeader>
+                                    <CardTitle className="flex items-center justify-between">
+                                        <span className="flex items-center gap-2">
+                                            <Sparkles className="h-5 w-5" />
+                                            Recipe Ingredients (
+                                            {selectedProducts.length})
+                                        </span>
+                                        <div className="flex items-center gap-4">
+                                            <Badge className="bg-savings text-white">
+                                                Save ${totalSavings.toFixed(2)}
+                                            </Badge>
+                                            <Button
+                                                onClick={generateRecipes}
+                                                disabled={isGenerating}
+                                            >
+                                                {isGenerating ? (
+                                                    <>
+                                                        <Loader2 className="mr-2 h-4 w-4 animate-spin" />
+                                                        Generating...
+                                                    </>
+                                                ) : (
+                                                    <>
+                                                        <ChefHat className="mr-2 h-4 w-4" />
+                                                        Generate Recipe
+                                                    </>
+                                                )}
+                                            </Button>
+                                        </div>
+                                    </CardTitle>
+                                </CardHeader>
+                                <CardContent>
+                                    <div className="flex flex-wrap gap-2">
+                                        {selectedProducts.map((product) => (
+                                            <Badge
+                                                key={product.id}
+                                                variant="secondary"
+                                                className="cursor-pointer hover:bg-destructive hover:text-destructive-foreground"
+                                                onClick={() =>
+                                                    removeFromSelected(
+                                                        product.id,
+                                                    )
+                                                }
+                                            >
+                                                {product.product_name} - $
+                                                {product.discounted_price.toFixed(
+                                                    2,
+                                                )}
+                                                <span className="ml-1">×</span>
+                                            </Badge>
+                                        ))}
+                                    </div>
+                                </CardContent>
+                            </Card>
+                        )}
 
-          <TabsContent value="recipes" className="space-y-6">
-            {recipesLoading ? (
-              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-                {[...Array(6)].map((_, i) => (
-                  <Card key={i} className="animate-pulse">
-                    <CardHeader>
-                      <div className="h-6 bg-muted rounded mb-2"></div>
-                      <div className="h-4 bg-muted rounded w-3/4"></div>
-                    </CardHeader>
-                    <CardContent>
-                      <div className="space-y-2">
-                        <div className="h-3 bg-muted rounded"></div>
-                        <div className="h-3 bg-muted rounded w-5/6"></div>
-                        <div className="h-3 bg-muted rounded w-4/6"></div>
-                      </div>
-                    </CardContent>
-                  </Card>
-                ))}
-              </div>
-            ) : recipes.length === 0 ? (
-              <Card>
-                <CardContent className="text-center py-12">
-                  <ChefHat className="h-12 w-12 mx-auto text-muted-foreground mb-4" />
-                  <h3 className="text-lg font-semibold mb-2">No Recipes Yet</h3>
-                  <p className="text-muted-foreground mb-4">
-                    Start by selecting some discount products and generate your first recipe!
-                  </p>
-                  <Button onClick={() => setActiveTab("products")}>
-                    Browse Products
-                  </Button>
-                </CardContent>
-              </Card>
-            ) : (
-              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-                {recipes.map((recipe) => (
-                  <RecipeCard
-                    key={recipe.id}
-                    recipe={recipe}
-                  />
-                ))}
-              </div>
-            )}
-          </TabsContent>
-        </Tabs>
-      </div>
-    </div>
-  );
+                        {/* Filters */}
+                        <FilterBar
+                            filters={filters}
+                            onFiltersChange={setFilters}
+                            categories={categories}
+                        />
+
+                        {/* Products Grid */}
+                        {productsLoading ? (
+                            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4">
+                                {[...Array(8)].map((_, i) => (
+                                    <Card key={i} className="animate-pulse">
+                                        <CardContent className="p-4">
+                                            <div className="h-20 bg-muted rounded mb-3"></div>
+                                            <div className="h-4 bg-muted rounded mb-2"></div>
+                                            <div className="h-3 bg-muted rounded w-2/3"></div>
+                                        </CardContent>
+                                    </Card>
+                                ))}
+                            </div>
+                        ) : filteredProducts.length === 0 ? (
+                            <Card>
+                                <CardContent className="text-center py-12">
+                                    <ShoppingCart className="h-12 w-12 mx-auto text-muted-foreground mb-4" />
+                                    <h3 className="text-lg font-semibold mb-2">
+                                        No Products Found
+                                    </h3>
+                                    <p className="text-muted-foreground">
+                                        Try adjusting your filters or check back
+                                        later for new deals
+                                    </p>
+                                </CardContent>
+                            </Card>
+                        ) : (
+                            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4">
+                                {filteredProducts.map((product) => (
+                                    <DiscountProduct
+                                        key={product.id}
+                                        product={product}
+                                        onAddToRecipe={handleAddToRecipe}
+                                    />
+                                ))}
+                            </div>
+                        )}
+                    </TabsContent>
+
+                    <TabsContent value="recipes" className="space-y-6">
+                        {recipesLoading ? (
+                            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                                {[...Array(6)].map((_, i) => (
+                                    <Card key={i} className="animate-pulse">
+                                        <CardHeader>
+                                            <div className="h-6 bg-muted rounded mb-2"></div>
+                                            <div className="h-4 bg-muted rounded w-3/4"></div>
+                                        </CardHeader>
+                                        <CardContent>
+                                            <div className="space-y-2">
+                                                <div className="h-3 bg-muted rounded"></div>
+                                                <div className="h-3 bg-muted rounded w-5/6"></div>
+                                                <div className="h-3 bg-muted rounded w-4/6"></div>
+                                            </div>
+                                        </CardContent>
+                                    </Card>
+                                ))}
+                            </div>
+                        ) : recipes.length === 0 ? (
+                            <Card>
+                                <CardContent className="text-center py-12">
+                                    <ChefHat className="h-12 w-12 mx-auto text-muted-foreground mb-4" />
+                                    <h3 className="text-lg font-semibold mb-2">
+                                        No Recipes Yet
+                                    </h3>
+                                    <p className="text-muted-foreground mb-4">
+                                        Start by selecting some discount
+                                        products and generate your first recipe!
+                                    </p>
+                                    <Button
+                                        onClick={() => setActiveTab("products")}
+                                    >
+                                        Browse Products
+                                    </Button>
+                                </CardContent>
+                            </Card>
+                        ) : (
+                            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                                {recipes.map((recipe) => (
+                                    <RecipeCard
+                                        key={recipe.id}
+                                        recipe={recipe}
+                                    />
+                                ))}
+                            </div>
+                        )}
+                    </TabsContent>
+                </Tabs>
+            </div>
+        </div>
+    );
 };
 
 export default Index;
