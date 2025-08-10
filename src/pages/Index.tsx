@@ -8,8 +8,8 @@ import { RecipeCard } from "@/components/RecipeCard";
 import { FilterBar } from "@/components/FilterBar";
 import { useDiscountProducts } from "@/hooks/useDiscountProducts";
 import { useRecipes } from "@/hooks/useRecipes";
-import { FilterState, DiscountedProduct } from "@/types/types";
-import { ShoppingCart, ChefHat, Sparkles, RefreshCw } from "lucide-react";
+import { FilterState, DiscountedProduct, Recipe } from "@/types/types";
+import { ShoppingCart, ChefHat, Sparkles, RefreshCw, Loader2 } from "lucide-react";
 import { useToast } from "@/components/ui/use-toast";
 
 const Index = () => {
@@ -24,9 +24,97 @@ const Index = () => {
 
   const [selectedProducts, setSelectedProducts] = useState<DiscountedProduct[]>([]);
   const [activeTab, setActiveTab] = useState("products");
+  
+  const [isGenerating, setIsGenerating] = useState(false);
 
-  const { products, loading: productsLoading, categories, refetch: refetchProducts } = useDiscountProducts(filters);
+  const { loading: productsLoading, categories, refetch: refetchProducts } = useDiscountProducts(filters);
   const { recipes, loading: recipesLoading, addRecipe } = useRecipes();
+
+  const products = [
+  {
+    id: '1a2b3c4d-0001-4000-8000-123456789abc',
+    product_name: 'Organic Bananas',
+    original_price: 4.50,
+    discounted_price: 3.00,
+    percentage_off: 33,
+    store_name: 'Woolworths',
+    category: 'Fruits',
+    image_url: 'https://example.com/images/organic-banana.jpg',
+    product_url: 'https://woolworths.com.au/shop/productdetails/organic-bananas',
+    scraped_at: '2025-08-09T10:00:00Z',
+    is_active: true,
+    created_at: '2025-08-08T12:00:00Z',
+    updated_at: '2025-08-09T09:00:00Z',
+  },
+  {
+    id: '1a2b3c4d-0002-4000-8000-123456789abd',
+    product_name: 'Whole Milk 2L',
+    original_price: 3.20,
+    discounted_price: 2.80,
+    percentage_off: 13,
+    store_name: 'Coles',
+    category: 'Dairy',
+    image_url: 'https://example.com/images/whole-milk-2l.jpg',
+    product_url: 'https://coles.com.au/shop/productdetails/whole-milk-2l',
+    scraped_at: '2025-08-09T10:05:00Z',
+    is_active: true,
+    created_at: '2025-08-08T13:30:00Z',
+    updated_at: '2025-08-09T09:30:00Z',
+  },
+  {
+    id: '1a2b3c4d-0003-4000-8000-123456789abe',
+    product_name: 'Multigrain Bread',
+    original_price: 2.50,
+    discounted_price: 2.00,
+    percentage_off: 20,
+    store_name: 'Aldi',
+    category: 'Bakery',
+    image_url: 'https://example.com/images/multigrain-bread.jpg',
+    product_url: 'https://aldi.com.au/shop/productdetails/multigrain-bread',
+    scraped_at: '2025-08-09T09:45:00Z',
+    is_active: true,
+    created_at: '2025-08-08T11:00:00Z',
+    updated_at: '2025-08-09T08:30:00Z',
+  },
+  {
+    id: '1a2b3c4d-0004-4000-8000-123456789abf',
+    product_name: 'Free Range Eggs 12 Pack',
+    original_price: 5.50,
+    discounted_price: 4.75,
+    percentage_off: 14,
+    store_name: 'IGA',
+    category: 'Dairy',
+    image_url: 'https://example.com/images/free-range-eggs.jpg',
+    product_url: 'https://iga.com.au/shop/productdetails/free-range-eggs',
+    scraped_at: '2025-08-09T09:15:00Z',
+    is_active: false,
+    created_at: '2025-08-07T15:00:00Z',
+    updated_at: '2025-08-08T10:00:00Z',
+  },
+];
+
+  const filteredProducts = products.filter(product => {
+    // Filter by search term
+    const matchesSearchTerm = filters.searchTerm === '' || 
+      product.product_name.toLowerCase().includes(filters.searchTerm.toLowerCase());
+
+    // Filter by selected stores
+    const matchesStore = filters.stores.length === 0 || 
+      filters.stores.includes(product.store_name);
+
+    // Filter by selected categories
+    const matchesCategory = filters.categories.length === 0 || 
+      filters.categories.includes(product.category);
+
+    // Filter by minimum discount
+    const meetsMinDiscount = product.percentage_off >= filters.minDiscount;
+
+    // Filter by maximum price
+    const meetsMaxPrice = product.discounted_price <= filters.maxPrice;
+
+    // Return true only if all conditions are met
+    return matchesSearchTerm && matchesStore && matchesCategory && meetsMinDiscount && meetsMaxPrice;
+  });
 
   const handleAddToRecipe = (product: DiscountedProduct) => {
     if (!selectedProducts.find(p => p.id === product.id)) {
@@ -58,11 +146,51 @@ const Index = () => {
       return;
     }
 
-    // This will be implemented with OpenAI integration later
-    toast({
-      title: "Coming Soon",
-      description: "AI Recipe generation will be available after connecting OpenAI API",
-    });
+    // setIsGenerating(true);
+    // try {
+    //   const ingredientNames = selectedProducts.map(p => p.product_name);
+      
+    //   const response = await fetch('/api/generate-recipe', {
+    //     method: 'POST',
+    //     headers: {
+    //       'Content-Type': 'application/json',
+    //     },
+    //     body: JSON.stringify({ ingredients: ingredientNames }),
+    //   });
+
+    //   if (!response.ok) {
+    //     throw new Error('Failed to generate recipe');
+    //   }
+
+    //   const newRecipeData = await response.json();
+
+    //   // Assuming your Recipe type has this structure.
+    //   // We add a unique client-side ID.
+    //   const newRecipe: Recipe = {
+    //     id: crypto.randomUUID(), 
+    //     ...newRecipeData
+    //   };
+      
+    //   addRecipe(newRecipe);
+      
+    //   toast({
+    //     title: "Recipe Generated!",
+    //     description: `Your new recipe "${newRecipe.title}" has been created.`,
+    //   });
+      
+    //   // Switch to the recipes tab to show the result
+    //   setActiveTab("recipes");
+
+    // } catch (error) {
+    //   console.error(error);
+    //   toast({
+    //     title: "Error",
+    //     description: "Could not generate a recipe. Please try again later.",
+    //     variant: "destructive",
+    //   });
+    // } finally {
+    //   setIsGenerating(false);
+    // }
   };
 
   const totalSavings = selectedProducts.reduce((sum, product) => 
@@ -124,7 +252,15 @@ const Index = () => {
                       <Badge className="bg-savings text-white">
                         Save ${totalSavings.toFixed(2)}
                       </Badge>
-                      <Button onClick={generateRecipes}>
+                      <Button onClick={generateRecipes} disabled={isGenerating}>
+                        {/* {isGenerating ? (
+                          <>
+                            <Loader2 className="mr-2 h-4 w-4 animate-spin" />
+                            Generating...
+                          </>
+                        ) : (
+                          "Generate Recipes"
+                        )} */}
                         Generate Recipes
                       </Button>
                     </div>
@@ -168,7 +304,7 @@ const Index = () => {
                   </Card>
                 ))}
               </div>
-            ) : products.length === 0 ? (
+            ) : filteredProducts.length === 0 ? (
               <Card>
                 <CardContent className="text-center py-12">
                   <ShoppingCart className="h-12 w-12 mx-auto text-muted-foreground mb-4" />
@@ -180,7 +316,7 @@ const Index = () => {
               </Card>
             ) : (
               <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4">
-                {products.map((product) => (
+                {filteredProducts.map((product) => (
                   <DiscountProduct
                     key={product.id}
                     product={product}
