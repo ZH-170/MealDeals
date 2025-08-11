@@ -105,7 +105,7 @@ const Index = () => {
 
     const createPrompt = (ingredients: string[]): string => {
         return `
-    You are a creative culinary assistant. Your task is to generate 3 compelling recipes based on a list of key ingredients.
+    You are a creative culinary assistant. Your task is to generate 2 compelling recipes based on a list of key ingredients.
 
 
     The key ingredients, which are on sale, are: ${ingredients.join(", ")}.
@@ -159,15 +159,14 @@ const Index = () => {
             const ingredientNames = selectedProducts.map((p) => p.product_name);
             const discountProductIds = selectedProducts.map((p) => p.id);
 
-            const API_KEY =
-                "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";
+            const API_KEY = import.meta.env.VITE_OPENROUTER_API_KEY;
 
             const response = await fetch(
                 "https://openrouter.ai/api/v1/chat/completions",
                 {
                     method: "POST",
                     headers: {
-                        Authorization: `Bearer ${API_KEY}`, // Your key is exposed here
+                        Authorization: `Bearer ${API_KEY}`,
                         "Content-Type": "application/json",
                     },
                     body: JSON.stringify({
