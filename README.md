@@ -1,73 +1,59 @@
-# Welcome to your Lovable project
+# 🛒 MealDeals
 
-## Project info
+**Video Demo:** [Link to a short video showcasing your app]
 
-**URL**: https://lovable.dev/projects/161dfbb5-3edb-4dd2-b351-88a8c466aea1
+## The Problem We're Solving 💸
 
-## How can I edit this code?
+Ever stare into your fridge, wondering what to cook, while your grocery budget feels tighter than ever? We've all been there. Trying to eat well, save money, and get creative in the kitchen can feel like three different, impossible tasks. Scrolling through multiple supermarket apps for discounts and then brainstorming a meal from those scattered ingredients is a chore.
 
-There are several ways of editing your application.
+## Our Solution: A Smarter Way to Save and Cook 🤖
 
-**Use Lovable**
+**MealDeals** is the solution to this modern-day dilemma. We've built an intelligent web app that does the hard work for you. By scraping daily discounts from Sydney's biggest supermarkets (Woolworths, Coles, Aldi, and IGA), we give you a real-time list of what's on sale. But we don't stop there. We use an AI model to take those ingredients and generate delicious, personalized recipes, complete with cooking instructions and nutritional info.
 
-Simply visit the [Lovable Project](https://lovable.dev/projects/161dfbb5-3edb-4dd2-b351-88a8c466aea1) and start prompting.
+It's not just a grocery list—it's a meal plan powered by savings.
 
-Changes made via Lovable will be committed automatically to this repo.
+## ✨ Key Features
 
-**Use your preferred IDE**
+### 🛒 The Supermarket Tracker
+- **Daily Deals Delivered:** Get a fresh list of discounted products from all your favorite local supermarkets every single day.
+- **Save Smarter:** See original prices versus sale prices and know exactly how much you're saving.
 
-If you want to work locally using your own IDE, you can clone this repo and push changes. Pushed changes will also be reflected in Lovable.
+### 🔍 Find What You Need
+- **Powerful Filtering:** Quickly narrow down sales by **store, category**, or even specific **ingredients**.
+- **Instant Search:** Find that one item you've been waiting for a deal on with our fast search bar.
 
-The only requirement is having Node.js & npm installed - [install with nvm](https://github.com/nvm-sh/nvm#installing-and-updating)
+### 👩‍🍳 Your Personal AI Chef
+- **Magic in the Kitchen:** Our integrated AI model crafts unique, creative recipes using only the discounted ingredients you select.
+- **Everything You Need to Know:** Each recipe comes with clear, step-by-step instructions, a full ingredient list (with sale items highlighted), and detailed nutritional values.
+- **Endless Inspiration:** Don't like a suggestion? Just hit "Generate" again for a brand new idea!
 
-Follow these steps:
+### 📱 Designed for You
+- **Slick & Simple:** A clean, mobile-friendly interface that makes navigating a breeze.
+- **Never Lose a Recipe:** Found a winner? Mark it as a favorite to save it for later.
 
-```sh
-# Step 1: Clone the repository using the project's Git URL.
-git clone <YOUR_GIT_URL>
+## 🛠️ Tech Stack & How It's Built
 
-# Step 2: Navigate to the project directory.
-cd <YOUR_PROJECT_NAME>
+- **Frontend:** [e.g., React, Vite] for a dynamic and responsive user interface.
+- **Backend:** [e.g., Node.js with Express.js] to handle data scraping and API interactions.
+- **AI:** We leverage the power of OpenRouter for our creative recipe generation.
+- **Data Storage:** A robust [e.g., PostgreSQL, MongoDB] database to keep all the daily sales data organized.
+- **Web Scraping:** Our custom scrapers use [e.g., Puppeteer, Beautiful Soup] and follow `robots.txt` guidelines while rotating user agents to ensure ethical and reliable data collection.
 
-# Step 3: Install the necessary dependencies.
-npm i
+## 🚀 Get It Running Locally
 
-# Step 4: Start the development server with auto-reloading and an instant preview.
-npm run dev
-```
+Want to see what's under the hood?
 
-**Edit a file directly in GitHub**
+1.  **Clone the repo:** `git clone [Your GitHub Repository URL]`
+2.  **Install dependencies:** `npm install`
+3.  **Set up your AI key:** Add your API key to a `.env` file (e.g., `OPENAI_API_KEY=your_key_here`).
+4.  **Launch the app:** `npm start`
 
-- Navigate to the desired file(s).
-- Click the "Edit" button (pencil icon) at the top right of the file view.
-- Make your changes and commit the changes.
+And you're good to go!
 
-**Use GitHub Codespaces**
+## 👥 Meet the Team
 
-- Navigate to the main page of your repository.
-- Click on the "Code" button (green button) near the top right.
-- Select the "Codespaces" tab.
-- Click on "New codespace" to launch a new Codespace environment.
-- Edit files directly within the Codespace and commit and push your changes once you're done.
+- [ZH-170](https://github.com/ZH-170)
+- [yiningit](https://github.com/yiningit)
 
-## What technologies are used for this project?
-
-This project is built with:
-
-- Vite
-- TypeScript
-- React
-- shadcn-ui
-- Tailwind CSS
-
-## How can I deploy this project?
-
-Simply open [Lovable](https://lovable.dev/projects/161dfbb5-3edb-4dd2-b351-88a8c466aea1) and click on Share -> Publish.
-
-## Can I connect a custom domain to my Lovable project?
-
-Yes, you can!
-
-To connect a domain, navigate to Project > Settings > Domains and click Connect Domain.
-
-Read more here: [Setting up a custom domain](https://docs.lovable.dev/tips-tricks/custom-domain#step-by-step-guide)
+## Tags
+#gdg

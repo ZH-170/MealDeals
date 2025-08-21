@@ -105,7 +105,7 @@ const Index = () => {
 
     const createPrompt = (ingredients: string[]): string => {
         return `
-    You are a creative culinary assistant. Your task is to generate 2 compelling recipes based on a list of key ingredients.
+    You are a creative culinary assistant. Your task is to generate 3 compelling recipes based on a list of key ingredients.
 
 
     The key ingredients, which are on sale, are: ${ingredients.join(", ")}.
@@ -135,6 +135,7 @@ const Index = () => {
           cuisine_type: string;
         }
         \`\`\`
+        and please output these all in a line, you don't need to care about the data formatting
     5.  For each item in the 'ingredients' array:
         - Set 'isDiscounted' to true if it is one of the key ingredients.
         - List all other necessary ingredients (including pantry staples) and set their 'isDiscounted' property to false.
@@ -190,11 +191,15 @@ const Index = () => {
             }
 
             const data = await response.json();
+            const cleanData = data.choices[0].message.content.match(/\[[\s\S]*\]/);
+            // const newRecipeDataArray = JSON.parse(
+            //     data.choices[0].message.content,
+            // );
 
-            const newRecipeDataArray = JSON.parse(
-                data.choices[0].message.content,
-            );
-
+            // const newRecipeDataArray = data.choices[0].message.content;
+            // console.log(newRecipeDataArray);
+            // console.log(typeof newRecipeDataArray);
+            const newRecipeDataArray = JSON.parse(cleanData);
             newRecipeDataArray.forEach((recipeData: any) => {
                 const newRecipeData = recipeData;
                 const newRecipe: Recipe = {
