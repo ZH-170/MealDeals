@@ -8,7 +8,7 @@ Ever stare into your fridge, wondering what to cook, while your grocery budget f
 
 ## Our Solution: A Smarter Way to Save and Cook 🤖
 
-**MealDeals** is the solution to this modern-day dilemma. We've built an intelligent web app that does the hard work for you. By scraping daily discounts from Sydney's biggest supermarkets (Woolworths, Coles, Aldi, and IGA), we give you a real-time list of what's on sale. But we don't stop there. We use an AI model to take those ingredients and generate delicious, personalized recipes, complete with cooking instructions and nutritional info.
+**MealDeals** is the solution to this modern-day dilemma. We've built an intelligent web app that does the hard work for you. By pulling daily discounts from Sydney's biggest supermarkets (Woolworths, Coles, Aldi, and IGA), we give you a real-time list of what's on sale. But we don't stop there. We use an AI model to take those ingredients and generate delicious, personalized recipes, complete with cooking instructions and nutritional info.
 
 It's not just a grocery list—it's a meal plan powered by savings.
 
@@ -33,11 +33,10 @@ It's not just a grocery list—it's a meal plan powered by savings.
 
 ## 🛠️ Tech Stack & How It's Built
 
-- **Frontend:** [e.g., React, Vite] for a dynamic and responsive user interface.
-- **Backend:** [e.g., Node.js with Express.js] to handle data scraping and API interactions.
-- **AI:** We leverage the power of OpenRouter for our creative recipe generation.
-- **Data Storage:** A robust [e.g., PostgreSQL, MongoDB] database to keep all the daily sales data organized.
-- **Web Scraping:** Our custom scrapers use [e.g., Puppeteer, Beautiful Soup] and follow `robots.txt` guidelines while rotating user agents to ensure ethical and reliable data collection.
+- **Frontend:** React and Vite for a dynamic and responsive user interface.
+- **Backend:** Node.js to handle data scraping and API interactions.
+- **AI:** We run DeepSeek and LLaMA models locally, using Ollama to manage and serve the models.
+- **Proprietary APIs:** We'll integrate the proprietary APIs of the major Sydney supermarkets to deliver up-to-date, guaranteed accurate deals.
 
 ## 🚀 Get It Running Locally
 
@@ -46,7 +45,7 @@ Want to see what's under the hood?
 1.  **Clone the repo:** `git clone [Your GitHub Repository URL]`
 2.  **Install dependencies:** `npm install`
 3.  **Set up your AI key:** Add your API key to a `.env` file (e.g., `OPENAI_API_KEY=your_key_here`).
-4.  **Launch the app:** `npm start`
+4.  **Launch the app:** `npm run dev`
 
 And you're good to go!
 
