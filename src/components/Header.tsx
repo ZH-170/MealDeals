@@ -20,27 +20,9 @@ const Header = () => {
                             recipes
                         </p>
                     </div>
-                    {/* <div className="flex items-center gap-4">
-                        <Badge
-                            variant="outline"
-                            className="bg-savings/10 text-savings border-savings"
-                        >
-                            {products.length} Products on Sale
-                        </Badge>
-                        <Button
-                            variant="outline"
-                            size="sm"
-                            onClick={refetchProducts}
-                        >
-                            <RefreshCw className="h-4 w-4 mr-1" />
-                            Refresh
-                        </Button>
-                    </div> */}
-                    
                     <div className="flex items-center justify-center h-12 w-12 rounded-full border border-black cursor-pointer" onClick={() => navigate("/profile")}>
                         <div><img src="wolf.jpg" alt="Avatar" className="h-10 w-10 rounded-full"/></div>
                     </div>
-                    
                 </div>
             </div>
         </header>
