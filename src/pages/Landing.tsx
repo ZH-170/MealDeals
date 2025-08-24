@@ -17,6 +17,7 @@ import {
     Loader2,
 } from "lucide-react";
 import { useToast } from "@/components/ui/use-toast";
+import Header from "@/components/Header";
 
 const Index = () => {
     const { toast } = useToast();
@@ -355,6 +356,7 @@ const Index = () => {
                     </div>
                 </div>
             </header>
+            {/* <Header /> */}
 
             <div className="container mx-auto px-4 py-6">
                 <Tabs value={activeTab} onValueChange={setActiveTab}>
