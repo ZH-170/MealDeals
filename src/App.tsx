@@ -15,8 +15,16 @@ const App = () => (
             <Sonner />
             <BrowserRouter>
                 <Routes>
+<<<<<<< Updated upstream
                     <Route path="/" element={<Index />} />
                     {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
+=======
+                    <Route path="/" element={<Landing />} />
+                    <Route path="/landing" element={<Landing />} />
+                    <Route path="/profile" element={<Index />} />
+                    <Route path="/subscription" element={<Subscription />} />
+                    <Route path="/main" element={<Index />}/>
+>>>>>>> Stashed changes
                     <Route path="*" element={<NotFound />} />
                 </Routes>
             </BrowserRouter>
