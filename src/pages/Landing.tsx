@@ -36,10 +36,8 @@ const Landing = () => {
 
     return (
         <div className="flex bg-background flex-col items-center justify-center text-center px-6">
-
             <div className="mt-[180px]">
-
-            
+                
             {/* Website Name */}
             <h1 className="text-6xl md:text-8xl font-extrabold text-primary mb-6">
                 Meal Deals
