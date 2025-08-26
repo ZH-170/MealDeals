@@ -36,16 +36,17 @@ const Landing = () => {
 
     return (
         <div className="flex bg-background flex-col items-center justify-center text-center px-6">
+
             <div className="mt-[180px]">
 
             
             {/* Website Name */}
-            <h1 className="text-6xl md:text-7xl font-extrabold text-primary mb-4">
+            <h1 className="text-6xl md:text-8xl font-extrabold text-primary mb-6">
                 Meal Deals
             </h1>
 
             {/* Tagline */}
-            <p className="text-muted-foreground mb-8">
+            <p className="text-lg text-muted-foreground mb-11">
                 <b>Shop smarter, cook cheaper:</b> your ultimate grocery shopping app for finding the best deals
             </p>
 

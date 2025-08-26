@@ -17,12 +17,10 @@ const App = () => (
         <TooltipProvider>
             <Toaster />
             <Sonner />
-            {/* <Header /> */}
             <BrowserRouter>
             <Header />
                 <Routes>
-                    <Route path="/" element={<Index />} />
-                    <Route path="/landing" element={<Landing />} />
+                    <Route path="/" element={<Landing />} />
                     <Route path="/profile" element={<Profile />} />
                     <Route path="/subscription" element={<Subscription />} />
                     <Route path="/main" element={<Index />}/>
