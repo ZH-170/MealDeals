@@ -14,6 +14,15 @@ export interface DiscountedProduct {
     updated_at: string;
 }
 
+export interface Influencers {
+    id: string;
+    full_name: string;
+    plateform: string;
+    subscriber_or_follower_count: string;
+    imageurl: string;
+    notes: string;
+}
+
 export interface Recipe {
     id: string;
     title: string;

@@ -1,0 +1,127 @@
+[
+  {
+    "id": "a1b2c3d4-5678-90ef-1234-56789abcdef0",
+    "title": "Spaghetti Bolognese",
+    "description": "A classic Italian pasta dish with rich, meaty tomato sauce.",
+    "ingredients": [
+      {
+        "name": "Spaghetti",
+        "amount": "500",
+        "unit": "g",
+        "isDiscounted": true,
+        "productId": "SPAG001"
+      },
+      {
+        "name": "Ground beef",
+        "amount": "400",
+        "unit": "g",
+        "isDiscounted": true,
+        "productId": "BEEF001"
+      },
+      { "name": "Tomato sauce", "amount": "2", "unit": "cups" },
+      { "name": "Onion", "amount": "1", "unit": "medium" },
+      { "name": "Garlic", "amount": "3", "unit": "cloves" },
+      { "name": "Olive oil", "amount": "2", "unit": "tbsp" }
+    ],
+    "cooking_steps": [
+      "Boil spaghetti in salted water until al dente.",
+      "Sauté onion and garlic in olive oil.",
+      "Add ground beef and cook until browned.",
+      "Stir in tomato sauce and simmer for 20 minutes.",
+      "Serve sauce over spaghetti."
+    ],
+    "calories": 650,
+    "prep_time_minutes": 10,
+    "cook_time_minutes": 30,
+    "servings": 4,
+    "difficulty_level": "Easy",
+    "cuisine_type": "Italian",
+    "generated_from_discounts": true,
+    "discount_products_used": ["SPAG001", "BEEF001"],
+    "created_at": "2025-08-25T14:32:10Z",
+    "updated_at": "2025-08-25T14:32:10Z"
+  },
+  {
+    "id": "f9e8d7c6-b5a4-4321-9abc-1234567890de",
+    "title": "Chicken Stir-Fry",
+    "description": "Quick and healthy chicken stir-fry with vegetables.",
+    "ingredients": [
+      {
+        "name": "Chicken breast",
+        "amount": "500",
+        "unit": "g",
+        "isDiscounted": true,
+        "productId": "CHICK001"
+      },
+      { "name": "Soy sauce", "amount": "3", "unit": "tbsp" },
+      { "name": "Bell peppers", "amount": "2", "unit": "medium" },
+      {
+        "name": "Broccoli",
+        "amount": "1",
+        "unit": "head",
+        "isDiscounted": true,
+        "productId": "BROCC001"
+      },
+      { "name": "Garlic", "amount": "2", "unit": "cloves" },
+      { "name": "Olive oil", "amount": "2", "unit": "tbsp" }
+    ],
+    "cooking_steps": [
+      "Cut chicken and vegetables into bite-size pieces.",
+      "Stir-fry chicken in olive oil until golden.",
+      "Add vegetables and cook for 5 minutes.",
+      "Pour soy sauce and stir-fry for 2 more minutes.",
+      "Serve hot with rice or noodles."
+    ],
+    "calories": 400,
+    "prep_time_minutes": 15,
+    "cook_time_minutes": 10,
+    "servings": 4,
+    "difficulty_level": "Medium",
+    "cuisine_type": "Asian",
+    "generated_from_discounts": true,
+    "discount_products_used": ["CHICK001", "BROCC001"],
+    "created_at": "2025-08-25T14:32:10Z",
+    "updated_at": "2025-08-25T14:32:10Z"
+  },
+  {
+    "id": "123e4567-e89b-12d3-a456-426614174000",
+    "title": "Cheesy Veggie Quesadillas",
+    "description": "Crispy tortillas filled with melted cheese and fresh vegetables.",
+    "ingredients": [
+      {
+        "name": "Tortillas",
+        "amount": "6",
+        "unit": "pieces",
+        "isDiscounted": true,
+        "productId": "TORT001"
+      },
+      {
+        "name": "Cheddar cheese",
+        "amount": "200",
+        "unit": "g",
+        "isDiscounted": true,
+        "productId": "CHEESE001"
+      },
+      { "name": "Tomatoes", "amount": "2", "unit": "medium" },
+      { "name": "Bell peppers", "amount": "1", "unit": "medium" },
+      { "name": "Onion", "amount": "1", "unit": "small" },
+      { "name": "Olive oil", "amount": "1", "unit": "tbsp" }
+    ],
+    "cooking_steps": [
+      "Chop vegetables finely.",
+      "Heat tortilla, sprinkle cheese and vegetables.",
+      "Fold tortilla and cook until golden and crispy.",
+      "Slice and serve with salsa or sour cream."
+    ],
+    "calories": 350,
+    "prep_time_minutes": 10,
+    "cook_time_minutes": 10,
+    "servings": 3,
+    "difficulty_level": "Easy",
+    "cuisine_type": "Mexican",
+    "generated_from_discounts": true,
+    "discount_products_used": ["TORT001", "CHEESE001"],
+    "created_at": "2025-08-25T14:32:10Z",
+    "updated_at": "2025-08-25T14:32:10Z"
+  }
+]

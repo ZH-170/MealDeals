@@ -17,6 +17,7 @@ import {
     Loader2,
 } from "lucide-react";
 import { useToast } from "@/components/ui/use-toast";
+import Header from "@/components/Header";
 
 const Index = () => {
     const { toast } = useToast();
@@ -322,40 +323,6 @@ const Index = () => {
 
     return (
         <div className="min-h-screen bg-background">
-            {/* Header */}
-            <header className="border-b bg-card">
-                <div className="container mx-auto px-4 py-6">
-                    <div className="flex items-center justify-between">
-                        <div>
-                            <h1 className="text-3xl font-bold text-primary flex items-center gap-2">
-                                <ShoppingCart className="h-8 w-8" />
-                                Meal Deals
-                            </h1>
-                            <p className="text-muted-foreground mt-1">
-                                Find discounted groceries and create delicious
-                                recipes
-                            </p>
-                        </div>
-                        <div className="flex items-center gap-4">
-                            <Badge
-                                variant="outline"
-                                className="bg-savings/10 text-savings border-savings"
-                            >
-                                {products.length} Products on Sale
-                            </Badge>
-                            <Button
-                                variant="outline"
-                                size="sm"
-                                onClick={refetchProducts}
-                            >
-                                <RefreshCw className="h-4 w-4 mr-1" />
-                                Refresh
-                            </Button>
-                        </div>
-                    </div>
-                </div>
-            </header>
-
             <div className="container mx-auto px-4 py-6">
                 <Tabs value={activeTab} onValueChange={setActiveTab}>
                     <TabsList className="grid w-full grid-cols-2 mb-6">
@@ -433,13 +400,32 @@ const Index = () => {
                                 </CardContent>
                             </Card>
                         )}
-
+                        <div className="flex flex-row justify-between">
                         {/* Filters */}
-                        <FilterBar
-                            filters={filters}
-                            onFiltersChange={setFilters}
-                            categories={categories}
-                        />
+                            <div className="w-3/5">
+                                <FilterBar
+                                    filters={filters}
+                                    onFiltersChange={setFilters}
+                                    categories={categories}
+                                />
+                            </div>
+                            <div className="flex items-top gap-4">
+                                <Badge
+                                    variant="outline"
+                                    className="bg-savings/10 h-7 text-savings border-savings"
+                                >
+                                    {products.length} Products on Sale
+                                </Badge>
+                                <Button
+                                    variant="outline"
+                                    size="sm"
+                                    onClick={refetchProducts}
+                                >
+                                    <RefreshCw className="h-4 w-4 mr-1" />
+                                    Refresh
+                                </Button>
+                            </div>
+                        </div>
 
                         {/* Products Grid */}
                         {productsLoading ? (
