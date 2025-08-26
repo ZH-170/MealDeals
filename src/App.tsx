@@ -8,6 +8,7 @@ import Index from "./pages/Main";
 import Subscription from "./pages/Subscription";
 import NotFound from "./pages/NotFound";
 import Header from "./components/Header";
+import Profile from "./pages/Profile";
 
 const queryClient = new QueryClient();
 
@@ -22,7 +23,7 @@ const App = () => (
                 <Routes>
                     <Route path="/" element={<Index />} />
                     <Route path="/landing" element={<Landing />} />
-                    <Route path="/profile" element={<Index />} />
+                    <Route path="/profile" element={<Profile />} />
                     <Route path="/subscription" element={<Subscription />} />
                     <Route path="/main" element={<Index />}/>
                     <Route path="*" element={<NotFound />} />

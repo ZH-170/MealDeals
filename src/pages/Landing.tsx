@@ -35,7 +35,7 @@ const Landing = () => {
     const navigate = useNavigate();
 
     return (
-        <div className="flex bg-background flex flex-col items-center justify-center text-center px-6">
+        <div className="flex bg-background flex-col items-center justify-center text-center px-6">
             <div className="mt-[180px]">
 
             

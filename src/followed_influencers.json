@@ -1,0 +1,42 @@
+[
+  {
+    "id": 1,
+    "full_name": "Nick DiGiovanni",
+    "platform": "YouTube",
+    "subscriber_or_follower_count": "26.9M (YouTube subscribers)",
+    "imageurl": "https://cdn.prod.website-files.com/63b9c43cf803b0331540fa68/670963dafbc233e6417137c5_Nick%20DiGiovanni.png",
+    "notes": "Harvard-educated chef, food Guinness World Records holder"
+  },
+  {
+    "id": 4,
+    "full_name": "Maangchi",
+    "platform": "YouTube",
+    "subscriber_or_follower_count": "6.24M (YouTube subscribers)",
+    "imageurl": "https://www.thespecialsaucepodcast.com/wp-content/uploads/2020/01/maang.jpg",
+    "notes": "“YouTube’s Korean Julia Child,” Korean-cuisine cooking videos"
+  },
+  {
+    "id": 6,
+    "full_name": "Andy Cooks",
+    "platform": "TikTok/YouTube/Instagram",
+    "subscriber_or_follower_count": "13M across platforms",
+    "imageurl": "https://www.andy-cooks.com/cdn/shop/files/Andy_Cooks_5d30eedc-6475-4819-b761-eddd4492b253.jpg?v=1683172403&width=1080",
+    "notes": "NZ chef turned social media sensation"
+  },
+  {
+    "id": 7,
+    "full_name": "Jamie Oliver",
+    "platform": "Instagram/YouTube/TikTok",
+    "subscriber_or_follower_count": "approx 10–9 M Instagram (10 M IG)",
+    "imageurl": "https://yt3.googleusercontent.com/ZyXW1QZjuQ79W_pzUbQ2VIw-ljhbOFMmOx8IAAUg4gNt-91JlWW0L_1dxX_S0vfYN5miqLP0DA=s900-c-k-c0x00ffffff-no-rj",
+    "notes": "Celebrity chef and food activist; healthy recipes, global campaigns"
+  },
+  {
+    "id": 8,
+    "full_name": "Gordon Ramsay",
+    "platform": "Instagram/YouTube/TikTok",
+    "subscriber_or_follower_count": "approx 17 M Instagram followers",
+    "imageurl": "https://dnm.nflximg.net/api/v6/BvVbc2Wxr2w6QuoANoSpJKEIWjQ/AAAAQb30q-advWETxXaKga17hUo6PGApB6c5_FBdLPS4z47bbYROcLtfjjglAChWm7hFruCcLWp9_e35ShTRN7o3heo29LeozsbVKxYxHJ4LHZhYeNkiUY1EJ3gOKer_kwpCsfMANqjGfN2MXYxARNElzwrZ.jpg?r=79a",
+    "notes": "Global culinary superstar, TV host, restaurateur"
+  }
+]
