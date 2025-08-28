@@ -13,7 +13,7 @@ const Header = () => {
             <div className="container mx-auto px-4 py-6">
                 <div className="flex items-center justify-between">
                     <div>
-                        <h1 className="text-3xl font-serif font-bold text-primary flex items-center gap-2 hover:underline hover:cursor-pointer" onClick={() => navigate("/")}>
+                        <h1 className="text-3xl font-serif font-bold text-primary flex items-center gap-2 hover:cursor-pointer" onClick={() => navigate("/")}>
                             {/* <ShoppingCart className="h-8 w-8" /> */}
                             <img src="/logo.png" className="w-[38px] mr-1.5"/>
                             Meal Deals
@@ -25,16 +25,16 @@ const Header = () => {
                     <div className="flex flex-row justify-end gap-6"> 
                         <div className="mt-2">
                                 <Button
-                                    size="sm"
+                                    size="lg"
                                     variant="outline"
                                     onClick={() => navigate("/subscription")}
-                                    className="flex-1"
+                                    className="text-primary text-md border-2 border-primary bg-card hover:bg-primary hover:text-background transition-all duration-300"
                                 >
                                     Subscribe
                                 </Button>
                             
                         </div>
-                        <div className="flex items-center justify-center h-12 w-12 rounded-full border border-gray-300 cursor-pointer hover:shadow-lg" onClick={() => navigate("/profile")}>
+                        <div className="flex items-center justify-center h-14 w-14 rounded-full border-2 border-primary cursor-pointer hover:shadow-lg" onClick={() => navigate("/profile")}>
                             <div><img src="wolf.jpg" alt="Avatar" className="h-10 w-10 rounded-full"/></div>
                         </div>
                     </div>
