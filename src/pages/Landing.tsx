@@ -9,7 +9,7 @@ const Landing = () => {
             <div className="mt-[180px]">
                 
             {/* Website Name */}
-            <h1 className="text-6xl font-serif md:text-8xl font-extrabold text-primary mb-6">
+            <h1 className="text-6xl merriweather-custom md:text-8xl font-extrabold text-primary mb-6">
                 Meal Deals
             </h1>
 
