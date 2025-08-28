@@ -8,7 +8,7 @@ const followedInfluencers: Influencers[] = influencerData;
 
 const Profile = () => {
     return(
-        <div className="pr-[150px] pl-[120px] py-6 flex flex-row gap-8 justify-between">
+        <div className="pr-[200px] pl-[200px] py-6 flex flex-row gap-8 justify-between">
             <div className="flex flex-col w-[800px]">
                 <div className="mt-6 md:text-4xl font-extrabold text-primary">What are you craving, USER ?</div>
                 <div>

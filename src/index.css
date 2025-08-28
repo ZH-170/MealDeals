@@ -2,9 +2,28 @@
 @tailwind components;
 @tailwind utilities;
 
+@import url('https://fonts.googleapis.com/css2?family=Epunda+Slab:wght@400;500;700&display=swap');
+
+
 /* Definition of the design system. All colors, gradients, fonts, etc should be defined here. 
 All colors MUST be HSL.
 */
+
+.merriweather-custom {
+  font-family: "Merriweather", serif;
+  font-optical-sizing: auto;
+  font-weight: 800; /* Change weight as needed */
+  font-style: normal;
+  font-variation-settings:
+    "wdth" 100;
+}
+
+.epunda-slab-custom {
+  font-family: "Epunda Slab", serif;
+  font-optical-sizing: auto;
+  font-weight: 400; /* adjust as needed */
+  font-style: normal;
+}
 
 @layer base {
     :root {
@@ -17,16 +36,19 @@ All colors MUST be HSL.
         --popover: 0 0% 100%;
         --popover-foreground: 120 15% 15%;
 
-        --primary: 142 76% 36%;
+        /* --primary: 142 76% 36%; */
+        --primary: 45 100 51;
         --primary-foreground: 0 0% 100%;
 
-        --secondary: 120 60% 95%;
+        /* --secondary: 120 60% 95%; */
+        --secondary: 0 0 73;
         --secondary-foreground: 120 15% 15%;
 
         --muted: 120 20% 96%;
         --muted-foreground: 120 10% 50%;
 
-        --accent: 142 76% 18%;
+        /* --accent: 142 76% 18%; */
+        --accent: 40 100 45;
         --accent-foreground: 0 0% 100%;
 
         --destructive: 0 84.2% 60.2%;
@@ -39,10 +61,10 @@ All colors MUST be HSL.
         /* Custom discount finder colors */
         --discount: 0 84% 55%;
         --discount-foreground: 0 0% 100%;
-        --store-woolworths: 142 76% 36%;
-        --store-coles: 0 84% 55%;
-        --store-aldi: 25 95% 53%;
-        --store-iga: 220 84% 55%;
+        --store-woolworths: 119 39 40;
+        --store-coles: 0 100 50;
+        --store-aldi: 220 94 35;
+        --store-iga: 228 3 40;
         --savings: 120 100% 25%;
         --recipe-card: 120 40% 98%;
 
