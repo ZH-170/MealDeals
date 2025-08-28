@@ -13,11 +13,12 @@ const Header = () => {
             <div className="container mx-auto px-4 py-6">
                 <div className="flex items-center justify-between">
                     <div>
-                        <h1 className="text-3xl font-bold text-primary flex items-center gap-2 hover:underline hover:cursor-pointer" onClick={() => navigate("/")}>
-                            <ShoppingCart className="h-8 w-8" />
+                        <h1 className="text-3xl font-serif font-bold text-primary flex items-center gap-2 hover:underline hover:cursor-pointer" onClick={() => navigate("/")}>
+                            {/* <ShoppingCart className="h-8 w-8" /> */}
+                            <img src="/logo.png" className="w-[38px] mr-1.5"/>
                             Meal Deals
                         </h1>
-                        <p className="text-muted-foreground mt-1">
+                        <p className="text-muted-foreground mt-1 font-mono">
                             Find discounted groceries and create delicious recipes
                         </p>
                     </div>
