@@ -1,8 +1,7 @@
+@import url('https://fonts.googleapis.com/css2?family=Merriweather:wght@400;700;800&display=swap');
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
-
-@import url('https://fonts.googleapis.com/css2?family=Epunda+Slab:wght@400;500;700&display=swap');
 
 
 /* Definition of the design system. All colors, gradients, fonts, etc should be defined here. 
@@ -16,13 +15,6 @@ All colors MUST be HSL.
   font-style: normal;
   font-variation-settings:
     "wdth" 100;
-}
-
-.epunda-slab-custom {
-  font-family: "Epunda Slab", serif;
-  font-optical-sizing: auto;
-  font-weight: 400; /* adjust as needed */
-  font-style: normal;
 }
 
 @layer base {
@@ -56,7 +48,7 @@ All colors MUST be HSL.
 
         --border: 120 20% 90%;
         --input: 120 20% 94%;
-        --ring: 142 76% 36%;
+        --ring: 45 100 51;
 
         /* Custom discount finder colors */
         --discount: 0 84% 55%;

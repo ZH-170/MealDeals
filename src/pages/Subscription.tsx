@@ -7,7 +7,7 @@ const Subscription = () => {
             <div className="grid grid-cols-2 py-12 px-[150px] gap-7 mx-40 ">
                 {/* Free Plan */}
                 <div className="hover:shadow-lg rounded-lg border bg-card p-6 flex flex-col justify-between">
-                    <div><h2 className="text-3xl font-bold mb-4 font-serif text-primary text-center">Free Plan</h2>
+                    <div><h2 className="text-3xl font-bold mb-4 merriweather-custom text-primary text-center">Free Plan</h2>
                     <ul className="list-disc list-inside space-y-2 ml-6">
                         <li>See live discounted items from Woolworths, Coles, Aldi, and IGA</li>
                         <li>Basic AI recipe generation</li>
@@ -29,7 +29,7 @@ const Subscription = () => {
 
                 {/* Premium Plan */}
                 <div className="hover:shadow-lg rounded-lg border bg-card shadow-sm p-6">
-                    <h2 className="text-3xl font-bold mb-4 font-serif text-primary text-center">Premium Plan</h2>
+                    <h2 className="text-3xl font-bold mb-4 merriweather-custom text-primary text-center">Premium Plan</h2>
                     <ul className="list-disc list-inside space-y-2 ml-6">
                         <li>See live discounted items from Woolworths, Coles, Aldi, and IGA</li>
                         <li>Smart ingredient boosting – highlights the items you’re most likely to want based on your shopping history</li>

@@ -325,7 +325,7 @@ const Index = () => {
         <div className="min-h-screen bg-background">
             <div className="container mx-auto px-4 py-6">
                 <Tabs value={activeTab} onValueChange={setActiveTab}>
-                    <TabsList className="grid w-full grid-cols-2 mb-6">
+                    <TabsList className="grid w-full grid-cols-2 mb-6 bg-primary/30 text-black">
                         <TabsTrigger
                             value="products"
                             className="flex items-center gap-2"
@@ -354,7 +354,7 @@ const Index = () => {
                                             {selectedProducts.length})
                                         </span>
                                         <div className="flex items-center gap-4">
-                                            <Badge className="bg-savings text-white">
+                                            <Badge className="bg-savings text-white hover:bg-savings">
                                                 Save ${totalSavings.toFixed(2)}
                                             </Badge>
                                             <Button
