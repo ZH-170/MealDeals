@@ -31,7 +31,7 @@ export const RecipeCard = ({
     );
 
     return (
-        <Card className="bg-recipe-card hover:shadow-lg transition-shadow duration-200">
+        <Card className="bg-white hover:shadow-lg transition-shadow duration-200">
             <CardHeader className="pb-3">
                 <div className="flex justify-between items-start">
                     <CardTitle className="text-lg leading-tight">
@@ -170,7 +170,7 @@ export const RecipeCard = ({
                         variant="outline"
                         size="sm"
                         onClick={() => setShowFullRecipe(!showFullRecipe)}
-                        className="w-full"
+                        className="w-full bg-primary/5"
                     >
                         {showFullRecipe ? "Show Less" : "View Full Recipe"}
                     </Button>
@@ -194,7 +194,7 @@ export const RecipeCard_sm = ({
     );
 
     return (
-        <Card className="bg-recipe-card hover:shadow-lg transition-shadow duration-200">
+        <Card className="bg-white hover:shadow-lg transition-shadow duration-200">
             <CardHeader className="pb-3">
                 <div className="flex justify-between items-start">
                     <CardTitle className="text-sm leading-tight">

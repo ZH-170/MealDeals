@@ -16,7 +16,7 @@ const Header = () => {
                         <h1 className="text-3xl merriweather-custom font-bold text-primary flex items-center gap-2 hover:cursor-pointer" onClick={() => navigate("/")}>
                             {/* <ShoppingCart className="h-8 w-8" /> */}
                             <img src="/logo.png" className="w-[38px] mr-1.5"/>
-                            Meal Deals
+                            MealDeals
                         </h1>
                         <p className="text-muted-foreground mt-1 font-mono">
                             Find discounted groceries and create delicious recipes
