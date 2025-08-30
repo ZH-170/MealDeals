@@ -1,6 +1,6 @@
 # 🛒 MealDeals
 
-**Video Demo:** [Link to a short video showcasing your app]
+**Video Demo:** [https://youtu.be/-tntCk6jStA](https://youtu.be/-tntCk6jStA)
 
 ## The Problem We're Solving 💸
 
