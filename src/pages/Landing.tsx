@@ -10,7 +10,7 @@ const Landing = () => {
                 
             {/* Website Name */}
             <h1 className="text-6xl merriweather-custom md:text-8xl font-extrabold text-primary mb-6">
-                Meal Deals
+                MealDeals
             </h1>
 
             {/* Tagline */}

@@ -3,8 +3,8 @@ import { Button } from "@/components/ui/button";
 
 const Subscription = () => {
     return (
-        <div className="min-h-screen bg-background">
-            <div className="grid grid-cols-2 py-12 px-[150px] gap-7 mx-40 ">
+        <div className="bg-background">
+            <div className="grid grid-cols-2 py-10 px-[150px] gap-7 mx-40 ">
                 {/* Free Plan */}
                 <div className="hover:shadow-lg rounded-lg border bg-card p-6 flex flex-col justify-between">
                     <div><h2 className="text-3xl font-bold mb-4 merriweather-custom text-primary text-center">Free Plan</h2>

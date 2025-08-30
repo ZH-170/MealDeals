@@ -159,9 +159,6 @@ const Index = () => {
         try {
             setRecipes([]);
             const ingredientNames = selectedProducts.map((p) => p.product_name);
-            const discountProductIds = selectedProducts.map((p) => p.id);
-
-            const API_KEY = import.meta.env.VITE_OPENROUTER_API_KEY;
 
             const response = await fetch(
                 "http://localhost:11434/api/generate",
@@ -179,8 +176,6 @@ const Index = () => {
                 },
             );
 
-            console.log("response: ", response);
-
             if (!response.ok) {
                 console.log("NOT OKKK!!!");
                 const errorData = await response.json();
@@ -192,88 +187,56 @@ const Index = () => {
                 console.log("OKKK!!!");
             }
 
-        // Process streaming response
-        const reader = response.body.getReader();
-        const decoder = new TextDecoder();
-        let fullResponse = "";
-        let jsonObjects = [];
+            // Process streaming response
+            const reader = response.body.getReader();
+            const decoder = new TextDecoder();
+            let fullResponse = "";
+            let jsonObjects = [];
 
-        while (true) {
-            const { value, done } = await reader.read();
-            if (done) break;
+            while (true) {
+                const { value, done } = await reader.read();
+                if (done) break;
 
-            const chunk = decoder.decode(value, { stream: true });
-            const lines = chunk.split("\n").filter((line) => line.trim());
+                const chunk = decoder.decode(value, { stream: true });
+                const lines = chunk.split("\n").filter((line) => line.trim());
 
-            for (const line of lines) {
-                try {
-                    const json = JSON.parse(line);
-                    jsonObjects.push(json);
-                    fullResponse += json.response; // Concatenate response fragments
-                    if (json.done) {
-                        console.log("Stream complete:", json);
+                for (const line of lines) {
+                    try {
+                        const json = JSON.parse(line);
+                        jsonObjects.push(json);
+                        fullResponse += json.response; // Concatenate response fragments
+                        if (json.done) {
+                            console.log("Stream complete:", json);
+                        }
+                    } catch (error) {
+                        console.error("Failed to parse line:", line, error.message);
                     }
-                } catch (error) {
-                    console.error("Failed to parse line:", line, error.message);
                 }
             }
-        }
 
-        console.log("Full response string:", fullResponse);
-        console.log("Parsed JSON objects:", jsonObjects);
+            // Clean and fix the JSON array
+            let cleanedResponse = fullResponse.trim();
 
-        // // Parse the concatenated response as JSON
-        // try {
-        //     const finalJson = JSON.parse(fullResponse);
-        //     console.log("Final parsed JSON:", finalJson);
-        //     return finalJson;
-        // } catch (error) {
-        //     console.error("Failed to parse full response:", error.message);
-        //     throw new Error("Invalid JSON response: " + fullResponse);
-        // }
+            // Remove trailing incomplete objects (e.g., "{")
+            cleanedResponse = cleanedResponse.replace(/,\s*\{$/g, "");
+            // Remove extra closing brackets
+            while (cleanedResponse.endsWith("]]")) {
+                cleanedResponse = cleanedResponse.slice(0, -1);
+            }
+            // Ensure the response is a valid array
+            if (cleanedResponse.startsWith("[") && !cleanedResponse.endsWith("]")) {
+                cleanedResponse += "]";
+            }
 
-            // const data = await response.json();
-            // console.log("data:", data);
-            // const cleanData = data.choices[0].message.content.match(/\[[\s\S]*\]/);
-            // // const newRecipeDataArray = JSON.parse(
-            // //     data.choices[0].message.content,
-            // // );
+            // Parse the cleaned response
+            let finalJson;
+            try {
+                finalJson = JSON.parse(cleanedResponse);
+            } catch (error) {
+                console.error("Failed to parse cleaned response:", error.message);
+                throw new Error("Invalid JSON response: " + cleanedResponse);
+            }
 
-     // Clean and fix the JSON array
-        let cleanedResponse = fullResponse.trim();
-
-        // Remove trailing incomplete objects (e.g., "{")
-        cleanedResponse = cleanedResponse.replace(/,\s*\{$/g, "");
-        // Remove extra closing brackets
-        while (cleanedResponse.endsWith("]]")) {
-            cleanedResponse = cleanedResponse.slice(0, -1);
-        }
-        // Ensure the response is a valid array
-        if (cleanedResponse.startsWith("[") && !cleanedResponse.endsWith("]")) {
-            cleanedResponse += "]";
-        }
-
-        // Parse the cleaned response
-        let finalJson;
-        try {
-            finalJson = JSON.parse(cleanedResponse);
-        } catch (error) {
-            console.error("Failed to parse cleaned response:", error.message);
-            throw new Error("Invalid JSON response: " + cleanedResponse);
-        }
-
-        // // If an array is returned, select the first recipe
-        // if (Array.isArray(finalJson)) {
-        //     console.warn("Received an array of recipes, selecting the first one.");
-        //     finalJson = finalJson[0]; // Adjust to keep all recipes if needed
-        // }
-
-            // // const newRecipeDataArray = data.choices[0].message.content;
-            // // console.log(newRecipeDataArray);
-            // // console.log(typeof newRecipeDataArray);
-            // const newRecipeDataArray = JSON.parse(cleanData);
-            // const newRecipeDataArray = JSON.parse(fullResponse);
-            // console.log(typeof finalJson);
             const newRecipeDataArray = finalJson;
             
             newRecipeDataArray.forEach((recipeData: any) => {
